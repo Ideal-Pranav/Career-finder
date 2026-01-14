@@ -1,0 +1,199 @@
+// Prisma Schema for Career Path Finder
+// Supports: User Auth, Bookmarks, Quiz, Colleges, Scholarships
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER MANAGEMENT
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  bookmarks     Bookmark[]
+  quizResults   QuizResult[]
+  
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================
+// CAREER DATA
+// ============================================
+
+model Career {
+  id                      String   @id
+  category                String
+  careerOption            String
+  stream                  String
+  description             String   @db.Text
+  skillsRequired          String[]
+  entryLevelRoles         String
+  midLevelRoles           String
+  seniorLevelRoles        String
+  salaryEntry             Int
+  salarySenior            String   // Can be number or "Unlimited"
+  minAge                  String   // Can be number or "No limit"
+  maxAge                  String   // Can be number or "No limit"
+  passingCriteria12th     String
+  topColleges             String[]
+  popularExams            String[]
+  
+  // New fields for enhanced features
+  views                   Int      @default(0)
+  growthRate              String?
+  demandLevel             String?  // "high", "medium", "low"
+  trendingSkills          String[]
+  
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  bookmarks               Bookmark[]
+  colleges                College[]
+  scholarships            Scholarship[]
+  roadmaps                CareerRoadmap[]
+  
+  @@index([category])
+  @@index([stream])
+  @@map("careers")
+}
+
+model CareerRoadmap {
+  id          String   @id @default(cuid())
+  careerId    String
+  stage       String   // "Class 12", "Undergraduate", etc.
+  duration    String
+  milestones  String[]
+  options     String[]
+  
+  career      Career   @relation(fields: [careerId], references: [id], onDelete: Cascade)
+  
+  @@map("career_roadmaps")
+}
+
+// ============================================
+// COLLEGES & SCHOLARSHIPS
+// ============================================
+
+model College {
+  id          String   @id @default(cuid())
+  name        String
+  location    String
+  city        String?
+  state       String?
+  fees        Int
+  placement   Float    // Placement percentage
+  cutoff      String?
+  website     String?
+  
+  careerIds   String[]
+  careers     Career[] @relation(references: [id])
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([state])
+  @@index([fees])
+  @@map("colleges")
+}
+
+model Scholarship {
+  id            String   @id @default(cuid())
+  name          String
+  amount        Int
+  eligibility   String   @db.Text
+  deadline      DateTime?
+  provider      String   // "Government", "Private", etc.
+  category      String?
+  
+  careerIds     String[]
+  careers       Career[] @relation(references: [id])
+  
+  createdAt     DateTime @default(now())
+  
+  @@map("scholarships")
+}
+
+// ============================================
+// USER INTERACTIONS
+// ============================================
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  careerId  String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  career    Career   @relation(fields: [careerId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, careerId])
+  @@index([userId])
+  @@map("bookmarks")
+}
+
+model QuizResult {
+  id        String   @id @default(cuid())
+  userId    String
+  results   Json     // Top 5 career matches with scores
+  answers   Json     // User's quiz answers
+  score     Json     // Detailed scoring breakdown
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("quiz_results")
+}
