@@ -1,13 +1,12 @@
 "use client"
 
-import Image from "next/image"
-import Link from "next/link"
 import { motion } from "framer-motion"
 import { LayoutDashboard } from "lucide-react"
-
-import { buttonVariants } from "@/components/ui/button"
+import Image from "next/image"
 import { ThemeToggle } from "./theme-toggle"
 import { useComparisonStore } from "@/lib/store"
+import Link from "next/link"
+import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export function Header() {
@@ -22,7 +21,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo/Brand */}
-          <motion.div
+          <motion.div 
             className="flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
           >
@@ -31,7 +30,7 @@ export function Header() {
               alt="Career Finder logo"
               width={32}
               height={32}
-              className="rounded-full object-contain"
+              className="rounded-md"
               priority
             />
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-purple-400 to-pink-400 bg-clip-text text-transparent">

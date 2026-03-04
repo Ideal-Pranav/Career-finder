@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Script from "next/script"
 import dynamic from "next/dynamic"
-import Link from "next/link"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -96,19 +95,6 @@ export default function RootLayout({
           <Background3D />
           <Header />
           <main className="relative z-10">{children}</main>
-          <footer className="relative z-10 border-t border-white/10 bg-background/80 backdrop-blur-lg mt-10">
-            <div className="container mx-auto px-4 py-4 text-sm text-muted-foreground flex flex-col sm:flex-row items-center justify-between gap-2">
-              <span>© {new Date().getFullYear()} Career Finder. All rights reserved.</span>
-              <div className="flex items-center gap-4">
-                <Link
-                  href="/guides/after-10th"
-                  className="hover:text-primary transition-colors"
-                >
-                  Guide: Career Options After 10th
-                </Link>
-              </div>
-            </div>
-          </footer>
         </ThemeProvider>
       </body>
     </html>
