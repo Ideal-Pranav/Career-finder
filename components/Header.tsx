@@ -1,8 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { LayoutDashboard } from "lucide-react"
-import Image from "next/image"
+import { Sparkles, LayoutDashboard } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { useComparisonStore } from "@/lib/store"
 import Link from "next/link"
@@ -25,14 +24,22 @@ export function Header() {
             className="flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
           >
-            <Image
-              src="/logo.png"
-              alt="Career Finder logo"
-              width={32}
-              height={32}
-              className="rounded-md"
-              priority
-            />
+            <div className="relative">
+              <Sparkles className="h-6 w-6 text-primary" />
+              <motion.div
+                className="absolute inset-0"
+                animate={{
+                  rotate: 360,
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              >
+                <Sparkles className="h-6 w-6 text-primary/50" />
+              </motion.div>
+            </div>
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Career Finder
             </h1>
