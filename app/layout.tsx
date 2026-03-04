@@ -38,10 +38,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/education.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "Career Path Finder - Discover Your Future",
+        alt: "Career Finder logo",
       },
     ],
   },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Career Path Finder - Discover Your Future",
     description: "Explore career paths, salary ranges, and roadmap to success.",
-    images: ["/education.png"],
+    images: ["/logo.png"],
   },
 }
 

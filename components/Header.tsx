@@ -1,11 +1,13 @@
 "use client"
 
+import Image from "next/image"
+import Link from "next/link"
 import { motion } from "framer-motion"
-import { Sparkles, LayoutDashboard } from "lucide-react"
+import { LayoutDashboard } from "lucide-react"
+
+import { buttonVariants } from "@/components/ui/button"
 import { ThemeToggle } from "./theme-toggle"
 import { useComparisonStore } from "@/lib/store"
-import Link from "next/link"
-import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export function Header() {
@@ -20,26 +22,18 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo/Brand */}
-          <motion.div 
+          <motion.div
             className="flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="relative">
-              <Sparkles className="h-6 w-6 text-primary" />
-              <motion.div
-                className="absolute inset-0"
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <Sparkles className="h-6 w-6 text-primary/50" />
-              </motion.div>
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Career Finder logo"
+              width={32}
+              height={32}
+              className="rounded-full object-contain"
+              priority
+            />
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Career Finder
             </h1>
