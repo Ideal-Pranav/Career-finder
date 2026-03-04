@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   title: "Career Path Finder - Discover Your Future",
   description: "Explore career paths, salary ranges, and roadmap to success.",
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/education.png",
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
   openGraph: {
     title: "Career Path Finder - Discover Your Future",
