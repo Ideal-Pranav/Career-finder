@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   title: "Career Path Finder - Discover Your Future",
   description: "Explore career paths, salary ranges, and roadmap to success.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/education.png",
+    shortcut: "/education.png",
+    apple: "/education.png",
   },
   openGraph: {
     title: "Career Path Finder - Discover Your Future",
@@ -38,10 +38,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/logo.png",
+        url: "/education.png",
         width: 1200,
         height: 630,
-        alt: "Career Finder logo",
+        alt: "Career Path Finder - Discover Your Future",
       },
     ],
   },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Career Path Finder - Discover Your Future",
     description: "Explore career paths, salary ranges, and roadmap to success.",
-    images: ["/logo.png"],
+    images: ["/education.png"],
   },
 }
 
