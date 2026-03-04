@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
+import Link from "next/link"
 import { PageHeader } from "@/components/PageHeader"
 import { Input } from "@/components/ui/input"
 import { Search, Sparkles } from "lucide-react"
@@ -199,6 +200,22 @@ export default function CareersPage() {
             </div>
           </div>
         </div>
+
+        {/* Careers guide footer (only on careers page) */}
+        <footer className="border-t border-border/60 bg-background/80 backdrop-blur-sm">
+          <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-sm text-muted-foreground">
+            <p>
+              Need help choosing a stream after 10th? Read our detailed guide for Indian
+              students and parents.
+            </p>
+            <Link
+              href="/guides/after-10th"
+              className="text-primary font-medium hover:underline underline-offset-4"
+            >
+              Read guide: Career Options After 10th →
+            </Link>
+          </div>
+        </footer>
 
         {/* Career Detail Modal */}
         <CareerDetail
